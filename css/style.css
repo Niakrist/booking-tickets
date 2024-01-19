@@ -23,9 +23,10 @@
   width: 400px;
   height: 850px;
   border-radius: 50px;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
+
 
 .screen__container {
   width: 350px;

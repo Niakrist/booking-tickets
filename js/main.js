@@ -28,25 +28,37 @@ console.log('document.body.offsetHeight: ', document.body.offsetHeight);
 
 if (window.innerWidth < window.innerHeight) {
   const filmsEl = document.querySelector('.films');
-let y = 0
-filmsEl.addEventListener('touchmove', (e) => {
-  if (y >= 0 ) {
-    y += e.deltaY;
-    filmsEl.style.bottom = y + 'px'
-  } else {
-    y = 0;
-  }
-  if (y <= Number(filmsEl.offsetHeight) - 925) {
-    filmsEl.style.bottom = y + 'px'
-  } else {
-    y = Number(filmsEl.offsetHeight) - 925;
-  }
-})
+  let posY = 0;
+  let y = 0
+
+  filmsEl.addEventListener('touchmove', (e) => {
+    const { clientY } = e.touches[0];
+
+    if (posY < clientY) {
+      if (y >= 0) {
+        y -= 50;
+        filmsEl.style.bottom = y + 'px'
+      } else {
+        y = 0;
+      }
+    }
+
+    if (posY > clientY) {
+      if (y <= Number(filmsEl.offsetHeight) - 925) {
+        y += 50;
+        filmsEl.style.bottom = y + 'px'
+      } else {
+        y = Number(filmsEl.offsetHeight) - 925;
+      }
+    }
+    posY = clientY;
+
+  })
 } else {
   const filmsEl = document.querySelector('.films');
   let y = 0
-  filmsEl.addEventListener('wheel', (e) => {
-    if (y >= 0 ) {
+  filmsEl.addEventListener('onscroll', (e) => {
+    if (y >= 0) {
       y += e.deltaY;
       filmsEl.style.bottom = y + 'px'
     } else {
