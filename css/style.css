@@ -47,7 +47,7 @@
   top: 120px;
   position: absolute;
   /* margin-left: 5px; */
-  border-radius: 60px 0 0 60px;
+  border-radius: 60px;
   background-color: rgba(0, 0, 0, 0.6);
   overflow: hidden;
   z-index: 2;
