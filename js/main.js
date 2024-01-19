@@ -2,7 +2,15 @@ import { films } from "./../api/films.js";
 
 
 const filmsEL = document.querySelector('.films');
-const dataFilms = films;
+
+
+
+
+
+
+let dataFilms = films
+
+
 
 
 dataFilms.forEach(film => {
@@ -28,6 +36,8 @@ if (window.innerWidth < window.innerHeight) {
   console.log('mob');
   let posY = 0;
   filmsEl.addEventListener('touchmove', (e) => {
+
+
     const { clientY } = e.touches[0];
 
     if (posY < clientY) {
@@ -77,5 +87,26 @@ menuLinkEl.forEach(menuItem => {
     const navGenreEl = document.querySelector('.nav-genre');
     const dataAtr = menuItem.dataset.toDisplace;
     navGenreEl.style.left = dataAtr;
+
+    const genre = menuItem.textContent.trim().toLowerCase()
+
+    function getFilterFilms(films, myGgenre) {
+      if (myGgenre) {
+        console.log('myGgenre', myGgenre)
+        const copyDataFilms = [...films].filter(dataFilm => {
+          return dataFilm.genre.includes(myGgenre);
+        });
+    
+        return copyDataFilms;
+    
+    
+      } else {
+        return dataFilms;
+      }
+    }
+
+
+    dataFilms = getFilterFilms(films, genre);
+    console.log(dataFilms);
   })
 })
