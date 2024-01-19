@@ -21,28 +21,41 @@ dataFilms.forEach(film => {
   filmsEL.insertAdjacentHTML('beforeend', filmHTML)
 })
 
-const filmsEl = document.querySelector('.films');
+console.log('window.innerHeight: ', window.innerHeight);
+console.log('window.innerWidth: ', window.innerWidth);
+console.log('document.body.offsetHeight: ', document.body.offsetHeight);
 
+
+if (window.innerWidth < window.innerHeight) {
+  const filmsEl = document.querySelector('.films');
 let y = 0
-
-console.log(filmsEl.offsetHeight)
-
-filmsEl.addEventListener('wheel', (e) => {
-  console.log('deltaY:', e.deltaY)
-
+filmsEl.addEventListener('touchmove', (e) => {
   if (y >= 0 ) {
     y += e.deltaY;
     filmsEl.style.bottom = y + 'px'
   } else {
     y = 0;
   }
-
-
   if (y <= Number(filmsEl.offsetHeight) - 925) {
     filmsEl.style.bottom = y + 'px'
   } else {
     y = Number(filmsEl.offsetHeight) - 925;
   }
 })
-
-
+} else {
+  const filmsEl = document.querySelector('.films');
+  let y = 0
+  filmsEl.addEventListener('wheel', (e) => {
+    if (y >= 0 ) {
+      y += e.deltaY;
+      filmsEl.style.bottom = y + 'px'
+    } else {
+      y = 0;
+    }
+    if (y <= Number(filmsEl.offsetHeight) - 925) {
+      filmsEl.style.bottom = y + 'px'
+    } else {
+      y = Number(filmsEl.offsetHeight) - 925;
+    }
+  })
+}
